@@ -15,6 +15,7 @@ public class GameController {
     @Autowired
     ServiceHandler serviceHandler;
 
+
     @ModelAttribute("player")
     public Player getPlayer() {
         return new Player();
@@ -43,7 +44,7 @@ public class GameController {
     @GetMapping(value = "/game")
     public String gameView(@ModelAttribute("player") Player player, Model model) {
         model.addAttribute("funfact", "&quot;Chuck Norris knows the last digit of pi.&quot;");
-        model.addAttribute("comic_uri", "https://imgs.xkcd.com/comics/bad_code.png");
+        model.addAttribute("comic_uri", serviceHandler.getComic());
         return "game";
     }
 
