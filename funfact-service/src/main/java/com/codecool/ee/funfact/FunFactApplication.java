@@ -1,4 +1,4 @@
-package com.codecool.comics;
+package com.codecool.ee.funfact;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,13 +8,13 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class ComicServiceApplication {
+public class FunFactApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ComicServiceApplication.class, args);
+        SpringApplication.run(FunFactApplication.class, args);
     }
+
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 }
-

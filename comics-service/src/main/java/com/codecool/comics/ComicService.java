@@ -18,12 +18,11 @@ import java.util.Random;
 @Data
 public class ComicService {
 
-
-    @Autowired
-    RestTemplate restTemplate;
     private static final String API_URL = "https://xkcd.com/";
     Random random = new Random();
 
+    @Autowired
+    RestTemplate restTemplate;
 
     @GetMapping("/getcomic")
     public String getComic() throws IOException {

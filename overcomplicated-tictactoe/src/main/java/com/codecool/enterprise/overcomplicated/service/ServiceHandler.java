@@ -10,7 +10,7 @@ import java.net.URL;
 
 @Service
 public class ServiceHandler {
-    private static final String FUNFACTAPI_URL = "http://localhost:60001/random";
+    private static final String FUNFACTAPI_URL = "http://localhost:60001/funfact";
     private static final String COMICAPI_URL = "http://localhost:60002/getcomic";
     private static final String AVATARAPI_URL = "http://localhost:60003/getavatar";
     private static final String AIAPI_URL = "http://localhost:60004/aimove";

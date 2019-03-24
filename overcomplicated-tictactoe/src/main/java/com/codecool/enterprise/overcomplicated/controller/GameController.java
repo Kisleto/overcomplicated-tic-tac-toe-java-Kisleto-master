@@ -6,7 +6,10 @@ import com.codecool.enterprise.overcomplicated.service.ServiceHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes({"player", "game"})
@@ -43,7 +46,7 @@ public class GameController {
 
     @GetMapping(value = "/game")
     public String gameView(@ModelAttribute("player") Player player, Model model) {
-        model.addAttribute("funfact", "&quot;Chuck Norris knows the last digit of pi.&quot;");
+        model.addAttribute("funfact", serviceHandler.getFunfact());
         model.addAttribute("comic_uri", serviceHandler.getComic());
         return "game";
     }
