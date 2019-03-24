@@ -1,23 +1,19 @@
 package com.codecool.ee.overcomplicated.avatar.Service;
 
-import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 @Service
-@RestController
 @Slf4j
 public class AvatarService {
-    private static final String API_URL = "https://robohash.org/%s.png";
+    private static final String API_URL = "https://robohash.org/";
 
 
-    @GetMapping("/getavatar")
-    public String getAvatar(String username){
-        if(username == null){
-            username = "default";
-        }
-        return String.format(API_URL, username);
+    public URL getAvatar(String username) throws MalformedURLException {
+        String avatar = API_URL + username;
+        return new URL(avatar);
     }
 }

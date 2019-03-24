@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.net.URL;
+
 @Controller
 @SessionAttributes({"player", "game"})
 public class GameController {
@@ -30,8 +32,17 @@ public class GameController {
     }
 
     @ModelAttribute("avatar_uri")
-    public String getAvatarUri() {
-        return serviceHandler.getAvatar();
+    public URL getAvatarUri() {
+
+        Player player = (Player) session.getAttribute("player");
+        URL avatar;
+        if (player == null) {
+            avatar = serviceHandler.getAvatar("Anonymus");
+        } else {
+
+            avatar = serviceCaller.rollAvatar(player.getUserName());
+        }
+        return avatar;
     }
 
     @GetMapping(value = "/")
