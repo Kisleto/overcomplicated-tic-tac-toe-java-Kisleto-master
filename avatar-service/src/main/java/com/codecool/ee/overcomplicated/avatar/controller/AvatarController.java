@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 @RestController
 @Slf4j
 public class AvatarController {
@@ -17,7 +14,10 @@ public class AvatarController {
     private AvatarService avatarService;
 
     @GetMapping("/{username}")
-    public URL getComic(@PathVariable("username") String username) throws MalformedURLException {
+    public String getComic(@PathVariable("username") String username) {
+        if (username.equals("Anonymous")) {
+            return avatarService.getAvatar("Anonymous");
+        }
         return avatarService.getAvatar(username);
     }
 }

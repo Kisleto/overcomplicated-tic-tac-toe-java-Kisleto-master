@@ -15,8 +15,8 @@ public class ServiceHandler {
     private static final String AVATARAPI_URL = "http://localhost:60003/getavatar";
     private static final String AIAPI_URL = "http://localhost:60004/aimove";
 
-    public URL getAvatar(String username) {
-        return getResource(AVATARAPI_URL + username);
+    public String getAvatar(String username) {
+        return getResource(AVATARAPI_URL + "?username=" + username);
     }
 
     public String getFunfact() {
