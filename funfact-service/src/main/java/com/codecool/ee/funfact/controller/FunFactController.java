@@ -17,6 +17,7 @@ public class FunFactController {
 
     @GetMapping("/funfact")
     public String randomFunFact() throws JSONException {
+        log.info("=== Getting random fun fact: " + funFactService.getFunFact() + " ===");
         return funFactService.getFunFact();
     }
 }

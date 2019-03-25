@@ -42,10 +42,13 @@ public class ServiceHandler {
     }
 
     public String getFunfact() {
+        log.info("== Fun fact creation ==");
         return getResource(FUNFACTAPI_URL);
+
     }
 
     public String getComic() {
+        log.info("== Comic creation ==");
         return getResource(COMICAPI_URL);
     }
 
