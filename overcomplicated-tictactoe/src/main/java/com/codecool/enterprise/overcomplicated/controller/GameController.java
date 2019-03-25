@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
+import java.net.URL;
+
 @Controller
 @SessionAttributes({"player", "game"})
 public class GameController {
@@ -18,20 +21,36 @@ public class GameController {
     @Autowired
     ServiceHandler serviceHandler;
 
+    private HttpSession session;
+
+    public GameController(HttpSession session) {
+        this.session = session;
+    }
 
     @ModelAttribute("player")
     public Player getPlayer() {
-        return new Player();
+        Player player = new Player();
+        session.setAttribute("player", new Player());
+        return player;
     }
 
     @ModelAttribute("game")
     public TictactoeGame getGame() {
-        return new TictactoeGame();
+        TictactoeGame game = new TictactoeGame();
+        session.setAttribute("game", game);
+        return game;
     }
 
     @ModelAttribute("avatar_uri")
-    public String getAvatarUri(Player player) {
-        return serviceHandler.getAvatar(player.getUserName());
+    public URL getAvatarUri() {
+        Player player = (Player) session.getAttribute("player");
+        URL avatar;
+        if (player == null) {
+            avatar = serviceHandler.getAvatar("Anonymous");
+        } else {
+            avatar = serviceHandler.getAvatar(player.getUserName());
+        }
+        return avatar;
     }
 
     @GetMapping(value = "/")
@@ -41,6 +60,7 @@ public class GameController {
 
     @PostMapping(value="/changeplayerusername")
     public String changPlayerUserName(@ModelAttribute Player player) {
+        session.setAttribute("player", player);
         return "redirect:/game";
     }
 
@@ -53,7 +73,10 @@ public class GameController {
 
     @GetMapping(value = "/game-move")
     public String gameMove(@ModelAttribute("player") Player player, @ModelAttribute("move") int move) {
+        TictactoeGame game = (TictactoeGame) session.getAttribute("game");
+        String redirect = game.evaluateMove(game, move, serviceHandler);
         System.out.println("Player moved " + move);
-        return "redirect:/game";
+        return redirect;
+
     }
 }

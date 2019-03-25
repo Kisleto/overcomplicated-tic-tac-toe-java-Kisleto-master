@@ -16,6 +16,7 @@ import java.util.Arrays;
 
 @Service
 @Slf4j
+
 public class AiService {
     @Autowired
     RestTemplate restTemplate;
